@@ -6,36 +6,36 @@
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #1F8A70, #145C58);
+  background: linear-gradient(135deg, #1F8A70, #145C58); /* Gradient from HEAD, fallback from other branch */
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100vh; /* Using min-height from HEAD for better responsiveness */
   padding: 20px;
 }
 
 .todo-box {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent from HEAD */
+  backdrop-filter: blur(10px); /* Blur effect from HEAD */
+  padding: 30px; /* More padding from HEAD for better spacing */
+  border-radius: 16px; /* Slightly larger radius from HEAD */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Stronger shadow from HEAD */
   width: 100%;
-  max-width: 600px;
+  max-width: 750px; /* Increased max-width from other branch for balance */
   transition: transform 0.3s ease;
 }
 
 .todo-box:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Hover effect from HEAD */
 }
 
 h1 {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2rem; /* Larger font from HEAD */
   margin-bottom: 20px;
   color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow from HEAD */
 }
 
 .input-section {
@@ -45,23 +45,23 @@ h1 {
 }
 
 input, select {
-  flex: 1;
-  padding: 12px;
+  flex: 1; /* Flex from HEAD for better layout */
+  padding: 12px; /* Slightly larger padding from HEAD */
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent from HEAD */
   color: #fff;
   outline: none;
   transition: background 0.3s ease;
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7); /* Placeholder styling from HEAD */
 }
 
 input:focus, select:focus {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.3); /* Focus effect from HEAD */
 }
 
 button {
@@ -71,14 +71,14 @@ button {
   background: #ffffff;
   color: #145C58;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: bold; /* Bold from HEAD */
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease; /* Transitions from HEAD */
 }
 
 button:hover {
   background: #e0e0e0;
-  transform: scale(1.05);
+  transform: scale(1.05); /* Hover effect from HEAD */
 }
 
 .clear-btn {
@@ -95,7 +95,15 @@ button:hover {
 .checkbox-list {
   max-height: 300px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* More spacing from HEAD */
+}
+
+.checkbox-list label {
+  display: block;
+  margin: 5px 0; /* From other branch, kept for simplicity */
+  font-size: 1.1rem; /* Larger font from HEAD */
+  color: #fff;
+  cursor: pointer;
 }
 
 .task-item {
