@@ -12,6 +12,13 @@ function addTask() {
   if (taskText === "") return;
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  // Prevent duplicate tasks
+  if (tasks.some(task => task.text === taskText)) {
+    alert("Task already exists!");
+    return;
+  }
+
   tasks.push({ text: taskText, type: type });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
@@ -56,7 +63,7 @@ function renderTask(text, type) {
   li.appendChild(checkbox);
   document.getElementById("taskList").appendChild(li);
 
-  // Animate task appearance
+  // Animate appearance
   setTimeout(() => {
     li.style.opacity = "1";
     li.style.transform = "translateY(0)";

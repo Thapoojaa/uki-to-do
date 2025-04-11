@@ -48,7 +48,8 @@ h2 {
   margin-bottom: 20px;
 }
 
-input, select {
+input,
+select {
   flex: 1;
   padding: 12px;
   font-size: 16px;
@@ -58,7 +59,8 @@ input, select {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
