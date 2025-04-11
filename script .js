@@ -1,73 +1,75 @@
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
+  const addButton = document.querySelector(".add-btn");
+  const clearButton = document.querySelector(".clear-btn");
+
+  addButton.addEventListener("click", addTask);
+  clearButton.addEventListener("click", clearAllTasks);
+
+  // Load saved tasks
   const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
   savedTasks.forEach(task => renderTask(task.text, task.type));
   updateTaskCount();
-};
+});
 
 function addTask() {
   const input = document.getElementById("taskInput");
-  const type = document.getElementById("taskType").value;
   const taskText = input.value.trim();
+  const taskType = document.getElementById("taskType").value;
 
   if (taskText === "") return;
 
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  // Prevent duplicate tasks
-  if (tasks.some(task => task.text === taskText)) {
-    alert("Task already exists!");
-    return;
-  }
-
-  tasks.push({ text: taskText, type: type });
+  tasks.push({ text: taskText, type: taskType });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  renderTask(taskText, type);
-  updateTaskCount();
+  renderTask(taskText, taskType);
   input.value = "";
+  updateTaskCount();
 }
 
 function renderTask(text, type) {
   const li = document.createElement("li");
   li.className = `task ${type}`;
-  li.style.opacity = "0";
-  li.style.transform = "translateY(20px)";
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.onchange = function () {
-    if (checkbox.checked) {
-      li.style.opacity = "0";
-      li.style.transform = "translateY(-20px)";
-      setTimeout(() => {
-        li.remove();
-        removeTaskFromStorage(text);
-        updateTaskCount();
-      }, 300);
-    }
+  checkbox.onchange = () => {
+    li.style.opacity = "0";
+    li.style.transform = "translateY(-20px)";
+    setTimeout(() => {
+      li.remove();
+      removeTaskFromStorage(text);
+      updateTaskCount();
+    }, 300);
   };
-
-  const span = document.createElement("span");
-  span.textContent = text;
 
   const emoji = document.createElement("span");
   emoji.className = "task-emoji";
   emoji.textContent = type === "Urgent" ? "🔴" : type === "Work" ? "🟡" : "🟢";
 
-  const taskTextDiv = document.createElement("div");
-  taskTextDiv.className = "task-text";
-  taskTextDiv.appendChild(emoji);
-  taskTextDiv.appendChild(span);
+  const span = document.createElement("span");
+  span.textContent = text;
 
-  li.appendChild(taskTextDiv);
+  const textDiv = document.createElement("div");
+  textDiv.className = "task-text";
+  textDiv.appendChild(emoji);
+  textDiv.appendChild(span);
+
+  li.appendChild(textDiv);
   li.appendChild(checkbox);
   document.getElementById("taskList").appendChild(li);
 
   // Animate appearance
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     li.style.opacity = "1";
     li.style.transform = "translateY(0)";
-  }, 10);
+  });
+}
+
+function updateTaskCount() {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  document.getElementById("taskCount").textContent = `Tasks to complete: ${tasks.length}`;
 }
 
 function removeTaskFromStorage(text) {
@@ -80,15 +82,7 @@ function clearAllTasks() {
   localStorage.removeItem("tasks");
   const taskList = document.getElementById("taskList");
   while (taskList.firstChild) {
-    taskList.firstChild.style.opacity = "0";
-    taskList.firstChild.style.transform = "translateY(-20px)";
-    setTimeout(() => taskList.removeChild(taskList.firstChild), 300);
+    taskList.removeChild(taskList.firstChild);
   }
   updateTaskCount();
-}
-
-function updateTaskCount() {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  const counter = document.getElementById("taskCount");
-  counter.textContent = `Tasks to complete: ${tasks.length}`;
 }

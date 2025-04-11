@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Todo List</title>
+  <title>To-Do List</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 </head>
 <body>
   <div class="container">
     <header>
-      <span class="icon">📋</span>
+      <span class="icon">✅</span>
       <h2>My To-Do List</h2>
     </header>
     <div class="input-group">
-      <input type="text" id="taskInput" placeholder="Add a new task..." />
+      <input type="text" id="taskInput" placeholder="What do you need to do?" />
       <select id="taskType">
-        <option value="Work">🟡 Medium</option>
-        <option value="Personal">🟢 Low</option>
+        <option value="Work">🟡 Low</option>
+        <option value="Personal">🟢 Medium</option>
         <option value="Urgent">🔴 High</option>
       </select>
-      <button onclick="addTask()" class="add-btn">Add Task</button>
+      <button class="add-btn">➕ Add</button>
     </div>
     <div class="task-controls">
       <p class="task-count" id="taskCount">Tasks to complete: 0</p>
-      <button onclick="clearAllTasks()" class="clear-btn">Clear All</button>
+      <button class="clear-btn">🗑️ Clear All</button>
     </div>
     <ul id="taskList"></ul>
   </div>
-  <script src="script .js"></script>
+  <script src="./script .js"></script>
 </body>
 </html>
