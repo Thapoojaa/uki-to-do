@@ -6,36 +6,30 @@
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, #1F8A70, #145C58); /* Gradient from HEAD, fallback from other branch */
-  color: #fff;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Blue gradient */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Using min-height from HEAD for better responsiveness */
+  min-height: 100vh;
   padding: 20px;
 }
 
 .todo-box {
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent from HEAD */
-  backdrop-filter: blur(10px); /* Blur effect from HEAD */
-  padding: 30px; /* More padding from HEAD for better spacing */
-  border-radius: 16px; /* Slightly larger radius from HEAD */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Stronger shadow from HEAD */
+  background: #fff; /* Solid white background */
+  padding: 20px;
+  border-radius: 20px; /* More rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
   width: 100%;
-  max-width: 750px; /* Increased max-width from other branch for balance */
-  transition: transform 0.3s ease;
-}
-
-.todo-box:hover {
-  transform: translateY(-5px); /* Hover effect from HEAD */
+  max-width: 500px; /* Smaller width to match the image */
 }
 
 h1 {
   text-align: center;
-  font-size: 2rem; /* Larger font from HEAD */
+  font-size: 1.5rem;
   margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow from HEAD */
+  color: #333; /* Darker text for contrast */
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .input-section {
@@ -45,65 +39,71 @@ h1 {
 }
 
 input, select {
-  flex: 1; /* Flex from HEAD for better layout */
-  padding: 12px; /* Slightly larger padding from HEAD */
-  border: none;
-  border-radius: 8px;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent from HEAD */
-  color: #fff;
+  background: #f5f5f5;
+  color: #333;
   outline: none;
-  transition: background 0.3s ease;
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Placeholder styling from HEAD */
+  color: #aaa;
 }
 
 input:focus, select:focus {
-  background: rgba(255, 255, 255, 0.3); /* Focus effect from HEAD */
+  border-color: #666;
+}
+
+select {
+  position: relative;
+  appearance: none; /* Remove default dropdown arrow */
+  background: #f5f5f5 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="%23333" d="M0 0h10L5 5z"/></svg>') no-repeat right 10px center;
+  padding-right: 30px; /* Space for custom arrow */
+}
+
+/* Priority dot styling */
+select#priorityDropdown {
+  display: flex;
+  align-items: center;
+}
+
+select#priorityDropdown option[value="low"]::before,
+select#priorityDropdown option[value="medium"]::before,
+select#priorityDropdown option[value="high"]::before {
+  content: "• ";
+  font-size: 1.2rem;
+  vertical-align: middle;
 }
 
 button {
-  padding: 12px;
+  padding: 10px;
   border: none;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #145C58;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: bold; /* Bold from HEAD */
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease; /* Transitions from HEAD */
 }
 
-button:hover {
-  background: #e0e0e0;
-  transform: scale(1.05); /* Hover effect from HEAD */
-}
-
-.clear-btn {
-  background: #ff4d4d;
+.input-section button {
+  background: #1e90ff; /* Blue for Add button */
   color: #fff;
-  margin-top: 20px;
-  width: 100%;
+  width: 60px;
 }
 
-.clear-btn:hover {
-  background: #e60000;
+.history-btn {
+  background: #333; /* Dark gray for Show History */
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
 }
 
 .checkbox-list {
-  max-height: 300px;
+  max-height: 200px;
   overflow-y: auto;
-  margin-bottom: 20px; /* More spacing from HEAD */
-}
-
-.checkbox-list label {
-  display: block;
-  margin: 5px 0; /* From other branch, kept for simplicity */
-  font-size: 1.1rem; /* Larger font from HEAD */
-  color: #fff;
-  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .task-item {
@@ -113,20 +113,19 @@ button:hover {
   padding: 10px;
   margin: 5px 0;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  transition: all 0.3s ease;
+  background: #f5f5f5;
 }
 
 .task-item.low {
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #28a745; /* Green for low */
 }
 
 .task-item.medium {
-  border-left: 4px solid #ffc107;
+  border-left: 4px solid #ffc107; /* Yellow for medium */
 }
 
 .task-item.high {
-  border-left: 4px solid #dc3545;
+  border-left: 4px solid #dc3545; /* Red for high */
 }
 
 .task-item.completed {
@@ -139,8 +138,8 @@ button:hover {
 
 .task-item label {
   flex: 1;
-  font-size: 1.1rem;
-  color: #fff;
+  font-size: 1rem;
+  color: #333;
   cursor: pointer;
 }
 
@@ -156,12 +155,10 @@ button:hover {
 }
 
 .task-stats {
-  display: flex;
-  justify-content: space-between;
-  font-weight: bold;
+  text-align: center;
   font-size: 1rem;
-  margin-bottom: 10px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  margin-bottom: 20px;
 }
 
 /* Scrollbar Styling */
@@ -170,17 +167,17 @@ button:hover {
 }
 
 .checkbox-list::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: #f5f5f5;
   border-radius: 10px;
 }
 
 .checkbox-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: #ccc;
   border-radius: 10px;
 }
 
 .checkbox-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: #aaa;
 }
 
 /* Responsive Design */
@@ -189,11 +186,11 @@ button:hover {
     flex-direction: column;
   }
 
-  button {
+  .input-section button {
     width: 100%;
   }
 
   .todo-box {
-    padding: 20px;
+    padding: 15px;
   }
 }

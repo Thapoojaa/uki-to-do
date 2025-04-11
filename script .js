@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function addTask() {
   const taskName = document.getElementById('taskInput').value.trim();
   const priority = document.getElementById('priorityDropdown').value;
-  const color = document.getElementById('colorDropdown').value; // Added from other branch
 
   if (!taskName || !priority) {
     alert('Please enter a task and select a priority.');
@@ -17,7 +16,6 @@ function addTask() {
     id: Date.now(),
     name: taskName,
     priority: priority,
-    color: color || '#fff', // Default to white if no color, from other branch
     completed: false
   };
 
@@ -30,7 +28,6 @@ function addTask() {
   // Clear inputs
   document.getElementById('taskInput').value = '';
   document.getElementById('priorityDropdown').value = '';
-  document.getElementById('colorDropdown').value = ''; // Clear color input
 
   updateTaskStats();
 }
@@ -44,9 +41,6 @@ function appendTaskToList(task) {
   }
 
   const label = document.createElement('label');
-  label.style.color = task.color; // Apply color from other branch
-  label.style.fontSize = '20px'; // From other branch for better visibility
-  label.style.marginBottom = '10px'; // From other branch for spacing
   label.innerHTML = `
     <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskCompletion(${task.id}, this.checked)">
     ${task.name}
@@ -91,24 +85,28 @@ function deleteTask(taskId) {
   refreshTaskList();
 }
 
-function clearAllTasks() {
-  if (confirm('Are you sure you want to delete all tasks?')) {
-    localStorage.removeItem('tasks');
-    refreshTaskList();
+function toggleHistory() {
+  const list = document.getElementById('checkboxList');
+  const button = document.querySelector('.history-btn');
+  if (list.style.display === 'none') {
+    list.style.display = 'block';
+    button.textContent = 'Hide History';
+  } else {
+    list.style.display = 'none';
+    button.textContent = 'Show History';
   }
 }
 
 function refreshTaskList() {
   const list = document.getElementById('checkboxList');
+  const wasVisible = list.style.display !== 'none';
   list.innerHTML = '';
   loadTasks();
+  list.style.display = wasVisible ? 'block' : 'none';
 }
 
 function updateTaskStats() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(task => task.completed).length;
-
-  document.getElementById('totalTasks').textContent = `Total Tasks: ${totalTasks}`;
-  document.getElementById('completedTasks').textContent = `Completed: ${completedTasks}`;
+  const tasksToComplete = tasks.filter(task => !task.completed).length;
+  document.getElementById('tasksToComplete').textContent = `Tasks to complete: ${tasksToComplete}`;
 }
